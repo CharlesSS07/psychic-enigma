@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split View</title>
+    
+    <!-- Add the link to the external stylesheet -->
+    <link type="text/css" rel="stylesheet" href="./jquery-te-1.4.0.css">
+    <link type="text/css" rel="stylesheet" href="./chat.css">
+
+    <!-- Add jQuery and the jQuery TextEditor script -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./jquery-te-1.4.0.min.js" charset="utf-8"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        #conversation {
+            flex: 1;
+            height: 100%;
+            overflow: auto;
+            border-right: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        #editor {
+            flex: 2;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .jqte-test {
+            height:100$;
+        }
+    </style>
+</head>
+<body>
+    <div id="conversation">
+        <div class="iphone">
+            <div class="border">
+                <div class="responsive-html5-chat">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="editor">
+        <!-- Document editing content goes here -->
+        <textarea name="textarea" class="jqte-test"><b>My contents are from <u><span style="color:rgb(0, 148, 133);">TEXTAREA</span></u></b></textarea>
+    </div>
+
+<script>
+        $('.jqte-test').jqte();
+        //$('.jqte').height("100%");
+        //$('.jqte_editor').height("100%");
+
+        // settings of status
+        var jqteStatus = true;
+        $(".status").click(function()
+        {
+                jqteStatus = jqteStatus ? false : true;
+                $('.jqte-test').jqte({"status" : jqteStatus})
+        });
+</script>
+
+<script type="text/javascript" src="./chat.js" charset="utf-8"></script>
+</body>
+</html>
+
