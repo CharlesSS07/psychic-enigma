@@ -30,19 +30,31 @@
 
         #editor {
             flex: 2;
-            height: 100%;
+            /*height: 100%;*/
             padding: 20px;
             box-sizing: border-box;
         }
         
         #editor_area {
-            height:100%;
+            /*height:100%;*/
+        }
+        
+        .jqte {
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        
+        .jqte_editor {
+            height: 100%;
+            overflow-y: scroll;
         }
     </style>
 </head>
 <body>
     <div id="conversation">
-      <iframe src="node-chat-server/chat.html" style="width:100%; height: 100%" sandbox="allow-scripts allow-same-origin allow-forms" frameborder="0"></iframe>
+      <iframe src="chat.html" style="width:100%; height: 100%" sandbox="allow-scripts allow-same-origin allow-forms" frameborder="0"></iframe>
     <!--    <div class="iphone">
             <div class="border">
                 <div class="responsive-html5-chat">
