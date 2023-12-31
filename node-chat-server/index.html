@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Strife</title>
+	<link href="style.css" rel="stylesheet" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+</head>
+
+<body bgcolor="#2C2F33">
+	<script src="/socket.io/socket.io.js">
+	</script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js">
+	</script>
+
+	<script src='chat.js'>
+	</script>
+
+	<div id="messages"></div>
+  <div id="bottom"></div>
+  <div id='send'>
+      <form id="sendform" action="">
+          <button type=button class='mpbutton' id='uploadlabel' onCLick="alert('drag and drop files from your computer or from the web onto the message bar to add them');">+</button>
+
+          <button type=button class='mpbutton' id='scriptlabel' onCLick="$('#m').append('<div contenteditable=false><div class=\'scripttype\' contenteditable=true>/*javascript*/<br><br></div><button onclick=\'let js = $(`<div/>`).html($(this).closest(`div`).find(`.scripttype`).html().replace(/<br>/g, `\n`)).text(); console.log(js); eval(js);\'>run</button></div>');">&lt;/&gt;</button>
+
+          <span contenteditable=true id="m" autocomplete="off" disabled='true' ondrop="drop(event)" ondragover="allowDrop(event)">
+          </span>
+
+          <button type=submit id='sendbutton'>^</button> <!-- initially disabled until login -->
+      </form>
+  </div>
+
+  <div id="loginbg"> <!-- login page to be displayed initially -->
+    <!-- <center> -->
+      <form id="login" action="">
+          <!-- <h1 style="font-size:50px;">Log In:</h1><br> -->
+          <!-- <tr> -->
+          <a id='usernameline'>Username:&nbsp;&nbsp;<input type="text" id="uname" autofocus/></a>
+          <!-- </tr> -->
+          <table id='options' style="display: none;">
+            <tr>
+              <td>background color </td><td><input type='color' id='background' value='#222222'/></td>
+            </tr>
+            <tr>
+              <td>accent color </td><td><input type='color' id='accent' value='#1a5ad1'/></td>
+            </tr>
+            <tr>
+              <td>message bubble color </td><td><input type='color' id='msg-background' value='#444444'/></td>
+            </tr>
+            <tr>
+              <td>UI size </td><td><input type='number' id='ui-size' value='48'/></td>
+            </tr>
+          </table>
+
+          <button id="ubutton" type="submit">Enter</button>
+
+          <a id='showops' onclick="document.getElementById('options').style.display = 'block';">options</a>
+          
+      </form>
+    <!-- </center> -->
+  </div>
+
+  <script>
+    
+
+    // $('#m').keydown(function...)
+    document.onkeydown = function(e) { // hot keys while m bar is selected
+      var evtobj = window.event? event : e
+      if (evtobj.ctrlKey) {$('#m').focus()}
+      if ($('#m').is(":focus")){ // only if m bar is selected
+        
+        if (evtobj.keyCode == 74 && evtobj.ctrlKey){ // pressing 'Ctrl + j'
+          event.preventDefault(); // don't do normal programmed action of ctrl j
+          $('#scriptlabel').click(); // run the onclick of the button
+
+          // place cursor at line 2 in the scripttype box that appears
+          let range = document.createRange();
+          range.setStart($('#m .scripttype')[0], 2);
+          range.setEnd($('#m .scripttype')[0], 2);
+          let sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+        if (evtobj.keyCode == 13 && !evtobj.shiftKey){ // pressing enter key without shift
+          e.preventDefault(); // don't make newline
+          $('#m').closest("form").submit(); // submit message
+          $('#m').focus(); // refocus
+          return false; // don't reload
+        }
+      }
+    };
+
+/* // strobe accent color ;
+body.style.setProperty('--accent', 'hsl(0,100%,50%)');
+function incrementAccent(){
+  var color = body.style.getPropertyValue('--accent');
+  console.log(color);
+  var hsl = color.split('(')[1].split(')')[0].split(',');
+  var h = parseInt(hsl[0]);
+  var s = hsl[1];
+  var l = hsl[2];
+  h = (h+10)%360;
+  body.style.set Property('--accent', 'hsl('+h+','+s+','+l+')');
+}
+setInterval(incrementAccent, 100);
+*/
+
+
+    document.addEventListener('paste', function (e) {
+      let tg = e.target; // what is being pasted into
+      // if ($('#m').is(":focus")){ // only if m bar is selected
+        var clipboardData, pastedData;
+        // let e = ev.originalEvent; // for jquery .bind() rather than addeventlistener
+        // Stop data actually being pasted into div
+        e.stopPropagation();
+        e.preventDefault();
+
+        // Get pasted data via clipboard API
+        clipboardData = e.clipboardData || window.clipboardData;
+        pastedData = clipboardData.getData('Text');
+
+        // let tg = e.target;
+        tg.innerHTML = tg.innerHTML.substring(0, window.getSelection().getRangeAt(0).startOffset) + pastedData + tg.innerHTML.substring(window.getSelection().getRangeAt(0).endOffset);
+      // }
+    });
+
+
+    
+    // document.onkeypress = function(e) {
+    //   var evtobj = window.event? event : e
+    //   if (46 <= evtobj.keyCode <= 90 && !$('#m').is(":focus")) { // if key typed is alphanumeric and #m box is not selected
+    //     // (user probably wanted to type it in #m box)
+    //     // $('#m').append(String.fromCharCode(evtobj.keyCode)); // type the letter
+    //     $('#m').focus(); // select the message box (#m)
+    //     // $('#m').get(0).setSelectionRange(-1, -1); // put cursor at the end
+    //   }
+    // };
+
+  </script>
+  </body>
+</html>
+

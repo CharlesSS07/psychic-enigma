@@ -1,0 +1,266 @@
+:root {
+  --background: #222222;
+  --text-clr: #DDDDDD;
+  --msg-background: #444444;
+  --msg-text-clr: #FFFFFF;
+  --accent: #1a5ad1;
+  --accent-text-clr: #CECECE;
+  /* --ui-size: 40px; */
+  --ui-size: 48px;
+}
+
+* {
+    word-wrap: break-word;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a:hover{
+  cursor: pointer;
+}
+
+input[type=text], textarea, div[contenteditable=true]{
+  font-size: calc(var(--ui-size)/3); /* useful for mobile, prevents zooming in */
+}
+
+body {
+    font-size: calc(var(--ui-size)/3);
+    font-family: "Ubuntu", sans-serif;
+    /* font: 13px calibri, helvetica, sans-serif; */
+    background: var(--background);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#chat {
+    display: inline-block;
+    width: 100%;
+    right: 0px;
+    margin-right:0px;
+    background: var(--background);
+}
+#sidebar {
+    display: inline-block;
+    width: 20%;
+    text-align: left;
+    left:0px;
+    background: #111111;
+    height: 100%;
+}
+
+/* #send {
+    border: 2px dashed black;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: auto;
+    box-shadow: 0px -5px 10px 10px #00000033;
+    background: var(--background);
+} */
+#sendform {
+    display: flex;
+    position: fixed;
+    bottom: 0px;
+    overflow: hidden;
+    /* padding: 0; */
+    width: 100%;
+    height: auto;
+    padding: 1%;
+    margin-bottom: 0;
+    /* padding-top: 0; */
+    color: var(--text-clr);
+    background: var(--background);
+    box-shadow: 0px -5px 20px 10px #00000066;
+}
+#m {
+    margin: 2px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    font-size: calc(var(--ui-size)/3);
+    border: none;
+    border-radius: var(--ui-size);
+    padding: calc(var(--ui-size)/4);
+    /* padding-bottom: 0; */
+    /* width: 100%; */
+    flex-grow: 100;
+    /* height: var(--ui-size); */
+    /* margin: 0; */
+    background: #00000033;
+    transition: 0.5s;
+    word-wrap: break-word;
+    resize: none;
+    /* display: block; */
+}
+
+#m:focus {
+    border: 3px solid var(--accent);
+    color: var(--msg-text-clr);
+    background: var(--msg-background);
+}
+
+#sendform .mpbutton {
+    margin: 2px;
+    width: var(--ui-size);
+    height: var(--ui-size);
+    color: var(--text-clr);
+    background: #00000022;
+    border: none;
+    border-radius: var(--ui-size);
+    padding: auto;
+    text-align: center;
+    vertical-align: center;
+    transition: 0.5s;
+    /* margin: 0; */
+    font-size: calc(var(--ui-size)/3);
+    margin-left: 2px;
+}
+#sendform .mpbutton:hover{
+    /* background: #00000044; */
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 2px var(--accent);
+}
+
+#sendform #sendbutton {
+    margin: 2px;
+    width: var(--ui-size);
+    height: var(--ui-size);
+    color: var(--accent-text-clr);
+    background: var(--accent);
+    border: none;
+    border-radius: var(--ui-size);
+    padding: auto;
+    text-align: center;
+    vertical-align: center;
+    transition: 0.5s;
+    /* margin: 0; */
+    font-size: calc(var(--ui-size)/3);
+    margin-left: 2px;
+}
+#sendform #sendbutton:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 2px var(--accent);
+}
+
+.scripttype {
+  max-height: 400px;
+  overflow: auto;
+  background: #000000;
+  color: #00ff00;
+  font-family: "Courier New";
+}
+
+#messages {
+    height: 90%;
+    width: 100%;
+    list-style-type: none;
+    display: inline-block;
+    margin: 0;
+    margin-bottom: calc(2% + var(--ui-size));
+    padding: 0;
+    padding-bottom: 20px;
+}
+img{
+  max-width: 300px;
+}
+.messagec {
+    font-size: calc(var(--ui-size)/3);
+    float: left;
+    width: 100%;
+    color: var(--text-clr);
+    padding: 1%;
+}
+.messsagec .fromme {
+  float: right;
+}
+.bubble { /* message bubble*/
+    padding: 10px 10px;
+    margin: 4px 0px 0px 0px;
+    background: var(--msg-background);
+    color: var(--msg-text-clr);
+    word-wrap: break-word;
+    border-radius: 0px 30px 30px 30px; /*clockwise from top left */
+    max-width: 97%;
+    display: inline-block; /* important */
+}
+.fromme .bubble {
+  /* right: 0px; */
+  border-radius: 30px 0px 30px 30px;
+  float: right;
+}
+.sendername {
+  margin: 0px 0px 4px 0px;
+  font-size: calc(var(--ui-size)/4);
+  color: var(--text-clr);
+}
+
+.fromme .sendername {
+  text-align: right;
+}
+
+#loginbg {
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /*Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    background: #000000; /* Fallback color */
+    background: #000000C0; /* Black w/ opacity */
+    text-align: center;
+}
+
+#login {
+    text-align: left;
+    font-size: 18px;
+    color: black;
+    border-radius: 5px;
+    background: #ececec;
+    
+    padding: 20px;
+    /* border: 1px solid #888; */
+    /*width: 80%; /* Could be more or less, depending on screen size */
+    /* display: inline-block; */
+    margin: 30vh auto; /* 30% from the top and centered */
+    max-width: 500px;
+    box-shadow: 5px 5px 2px black;
+}
+
+#login #usernameline {
+  display: flex;
+}
+
+#login input {
+  width: 100%;
+}
+
+#login td {
+  width: 50%;
+}
+
+#login button{
+    /* float: right; */
+    color: var(--accent-text-clr);
+    border: none;
+    width: 100%;
+    /* margin: 10%; */
+    padding: 5px;
+    height: 25px;
+    border-radius: 5px;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-top: 1px;
+    margin-bottom: 2px;
+}
+#login button:hover{
+    box-shadow: 0px 0px 10px 2px black;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#bottom{
+  height: 0px;
+  bottom: 0px;
+}
