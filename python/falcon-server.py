@@ -1,36 +1,47 @@
-import falcon
 import falcon.asgi
 
-class UserMessageEndpoint:
+import collections
 
-    async def on_websocket(self, req: falcon.Request, ws: falcon.asgi.WebSocket, account_id: str):
-        
+import traceback
+
+class UserMessageEndpoint:
+    
+    async def on_get(self, req, resp):
+        pass
+
+    async def on_websocket(self, req: falcon.asgi.Request, ws: falcon.asgi.WebSocket):
+        print('on_websocket called')
         try:
             await ws.accept()
         except WebSocketDisconnected as e:
             print(e)
             return
-        
+        print('0')
         messages = collections.deque()
-
+        print('0.25')
         async def sink():
             while True:
                 try:
-                    message = await ws.receive_text()
-                except falcon.WebSocketDisconnected:
+                    print('0.5')
+                    message = await ws.receive_media()
+                    print(message)
+                    messages.append(message)
+                except Exception:
+                    traceback.print_exc()
+                    break
+                except falcon.WebSocketDisconnected as e:
                     break
 
-                messages.append(message)
-
         sink_task = falcon.create_task(sink())
-
+        print('1')
         while not sink_task.done():
             while ws.ready and not messages and not sink_task.done():
                 await asyncio.sleep(0)
 
             try:
-                await ws.send_text('echo: '+ account_id + ' ' + messages.popleft())
-            except falcon.WebSocketDisconnected:
+                await ws.send_text('echo: '+  messages.popleft())
+            except falcon.WebSocketDisconnected as e:
+                traceback.print_exc()
                 break
 
         sink_task.cancel()
@@ -42,7 +53,7 @@ class UserMessageEndpoint:
 app = falcon.asgi.App(
     # cors_enable=True # allows any endpoint to be accessed by the browser, could be insecure if that's not what we want
 )
-app.add_route('/users/{account_id}/messages', UserMessageEndpoint())
+app.add_route('/usersmessages', UserMessageEndpoint())
 
 import posixpath
 

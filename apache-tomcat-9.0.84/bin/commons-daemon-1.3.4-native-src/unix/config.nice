@@ -1,0 +1,7 @@
+#! /bin/sh
+#
+# Created by configure
+
+"./configure" \
+"--with-java=/Library/Java/JavaVirtualMachines/microsoft-11.jdk/Contents/Home" \
+"$@"
