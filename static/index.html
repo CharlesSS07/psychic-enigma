@@ -17,6 +17,7 @@
             padding: 0;
             display: flex;
             height: 100vh;
+            overflow: hidden;
         }
 
         #conversation {
@@ -31,6 +32,7 @@
             flex: 2;
             height: 100%;
             padding: 20px;
+            box-sizing: border-box;
         }
         
         #editor_area {
@@ -55,7 +57,8 @@
 
     <script>
         tinymce.init({
-            selector: '#editor_area'
+            selector: '#editor_area',
+            height: "100%",
         });
     </script>
 

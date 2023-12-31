@@ -179,13 +179,14 @@ img{
     background: var(--msg-background);
     color: var(--msg-text-clr);
     word-wrap: break-word;
-    border-radius: 0px 30px 30px 30px; /*clockwise from top left */
+    border-radius: 0px 10px 10px 10px; /*clockwise from top left */
     max-width: 97%;
     display: inline-block; /* important */
+    box-shadow: -0.1em 0.3em 0.3em rgba(0,0,0,0.5);
 }
 .fromme .bubble {
   /* right: 0px; */
-  border-radius: 30px 0px 30px 30px;
+  border-radius: 10px 0px 10px 10px;
   float: right;
 }
 .sendername {
