@@ -6,10 +6,10 @@
     <title>Psychic Enigma Editor</title>
     
     <!-- Add the link to the external stylesheet -->
-    <link type="text/css" rel="stylesheet" href="./chat.css">
+    <link type="text/css" rel="stylesheet" href="./jQuery-TE_v.1.4.0/jquery-te-1.4.0.css">
 
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./tinymce/js/tinymce/tinymce.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./jQuery-TE_v.1.4.0/jquery-te-1.4.0.min.js" charset="utf-8"></script>
     
     <style>
         body {
@@ -56,46 +56,8 @@
     </div>
 
     <script>
-        tinymce.init({
-            selector: '#editor_area',
-            height: "100%",
-        });
+        $("#editor_area").jqte();
     </script>
-
-<script type="text/javascript" src="./chat.js" charset="utf-8"></script>
-<!-- <script type="text/javascript">
-//responsiveChatPush('.chat', 'not The Dreaded Pirate Roberts', 'me', '08.03.2016 14:31:22', 'Hello');
-
-const chatServerEndpoint = 'localhost:8080/chat_server_webapp_war_exploded';
-const account_id = 'cshelbs';
-const userMessageSocket = new WebSocket(`ws://${chatServerEndpoint}/chat/cshelbs`);
-
-userMessageSocket.onopen = (event) => {
-    console.log('socket opened')
-    userMessageSocket.send(JSON.stringify({"content":"hello world", "from": account_id, "to":"AI"}));
-    onUserMessage = (messageString) => {
-        console.log(messageString);
-        userMessageSocket.send(JSON.stringify({"content": messageString, "from": account_id, "to":"AI"}))
-    };
-    
-    userMessageSocket.onmessage = (event) => {
-        console.log(event.data);
-        responsiveChatPush('.chat', 'The AI', 'you', 'sometime between then and now', event.data['content']);
-        return false;
-    };
-    return false;
-};
-
-userMessageSocket.onerror = (event) => {
-    console.log(event);
-}; 
-
-userMessageSocket.onclose = (event) => {
-    console.log(event);
-};
-
-console.log(userMessageSocket)
-</script> -->
 </body>
 </html>
 

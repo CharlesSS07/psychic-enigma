@@ -2,7 +2,10 @@
 
 ROOT_DIR=$(pwd)
 
+mkdir logs
+touch logs/node-chat-server.log
+
 cd node-chat-server
-npm install >> $ROOT_DIR/logs/node-chat-server.log 2>&1
-npm start >> $ROOT_DIR/logs/node-chat-server.log 2>&1 &
-cd ..
+npm install 2>&1 | tee $ROOT_DIR/logs/node-chat-server.log
+npm start 2>&1 | tee $ROOT_DIR/logs/node-chat-server.log
+
