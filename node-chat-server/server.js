@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 var path = require("path");
 // var express = requrire('express');
 
-__dirname = path.resolve(path.dirname(''));
+__dirname = path.resolve(path.dirname('')) + '/../static';
 
 app.use(express.static(__dirname + '/'));
 
