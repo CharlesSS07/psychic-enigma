@@ -40,6 +40,8 @@
         }
         
         .jqte {
+            display: flex;
+            flex-direction: column;
             height: 100%;
             padding: 0px;
             margin: 0px;
@@ -49,6 +51,7 @@
         .jqte_editor {
             height: 100%;
             overflow-y: scroll;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -69,6 +72,7 @@
 
     <script>
         $("#editor_area").jqte();
+        $('.jqte_editor').wrap($('<div style="height: 100%; overflow-y:auto"></div>'));
     </script>
 </body>
 </html>
