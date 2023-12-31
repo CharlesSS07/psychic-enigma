@@ -117,12 +117,12 @@ function brightness(color) {
  */
 $(function () {
   var socket = io();
-
-  var name = document.cookie.replace(/(?:(?:^|.*;\s*)strifename\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-  if (name != ""){
+  var name = 'you';
+  // var name = document.cookie.replace(/(?:(?:^|.*;\s*)strifename\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+  // if (name != ""){
     $('#uname').val(name);
-  } else {name="silentobserver";}
-
+  // } else {name="silentobserver";}
+  /**
 	$('#login').submit(function () {
     document.documentElement.style.setProperty('--background', $('#background').val());
     document.documentElement.style.setProperty('--accent', $('#accent').val());
@@ -171,7 +171,7 @@ $(function () {
       $('#m').focus(); // select message bar
 		}
 		return false; // don't reload on submit
-	});
+	}); **/
 
   // only send notification when tab is not active
   window.isActive = true;
