@@ -5,6 +5,8 @@ var io = require('socket.io')(http);
 var path = require("path");
 // var express = requrire('express');
 
+var ai = require('../ai/tools.js');
+
 __dirname = path.resolve(path.dirname('')) + '/../static';
 
 app.use(express.static(__dirname + '/'));
@@ -17,7 +19,7 @@ app.get('/', function (req, res) {
 
 io.on('connection', function (socket) {
     socket.on('chat message', function (msg) {
-        console.log(msg)
+        console.log(msg);
         io.emit('chat message', msg);
     });
 
