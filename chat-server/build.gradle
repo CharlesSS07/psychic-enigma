@@ -1,20 +1,14 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.6.3'
+    id 'org.springframework.boot' version '3.2.1'
     id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.psychicenigma'
 version = '0.0.1-SNAPSHOT'
 
-//java {
-//    sourceCompatibility = '21'
-//}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
+java {
+    sourceCompatibility = '21'
 }
 
 repositories {
@@ -22,17 +16,16 @@ repositories {
 }
 
 dependencies {
+    implementation("com.theokanning.openai-gpt3-java:service:0.18.2")
+    implementation files('../AI-engine/build/libs/AI-engine-1.0-SNAPSHOT.jar')
+    implementation "com.google.code.gson:gson:2.10.1"
+
+    implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    implementation 'org.webjars:sockjs-client:1.0.2'
-    implementation 'org.webjars:stomp-websocket:2.3.3'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
-
-//application {
-//    mainClassName = 'com.psychicenigma.ChatApplication'
-//}

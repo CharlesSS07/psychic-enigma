@@ -24,8 +24,7 @@
 
           <button type=button class='mpbutton' id='scriptlabel' onCLick="$('#m').append('<div contenteditable=false><div class=\'scripttype\' contenteditable=true>/*javascript*/<br><br></div><button onclick=\'let js = $(`<div/>`).html($(this).closest(`div`).find(`.scripttype`).html().replace(/<br>/g, `\n`)).text(); console.log(js); eval(js);\'>run</button></div>');">&lt;/&gt;</button>
 
-          <span contenteditable=true id="m" autocomplete="off" disabled='true' ondrop="drop(event)" ondragover="allowDrop(event)">
-          </span>
+          <span contenteditable=true id="m" autocomplete="off" disabled='true' ondrop="drop(event)" ondragover="allowDrop(event)">Sup fool!</span>
 
           <button type=submit id='sendbutton'>^</button> <!-- initially disabled until login -->
       </form>

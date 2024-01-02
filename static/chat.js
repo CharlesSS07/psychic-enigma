@@ -127,10 +127,8 @@ $(function () {
     };
 
     stompClient.onConnect = (frame) => {
+        // should un-gray/enable typing box
         console.log('Connected: ' + frame);
-        // stompClient.subscribe('/topic/chat-message', (msg) => {
-        //     showmsg(JSON.parse(msg.body).content);
-        // });
 
         // only send notification when tab is not active
         window.isActive = true;
