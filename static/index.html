@@ -10,7 +10,11 @@
 
     <script type="text/javascript" src="./jquery-3.7.1.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="./jQuery-TE_v.1.4.0/jquery-te-1.4.0.min.js" charset="utf-8"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src='cursor.js'></script>
+
     <style>
         body {
             margin: 0;
@@ -85,7 +89,42 @@ Trying to get anything right on the first really critical try is an extraordinar
 
     <script>
         $("#editor_area").jqte();
-        $('.jqte_editor').wrap($('<div style="height: 100%; overflow-y:auto"></div>'));
+        const editor = $('.jqte_editor');
+        editor.wrap($('<div style="height: 100%; overflow-y:auto"></div>'));
+
+        const stompClient = new StompJs.Client({
+            brokerURL: `ws://${window.location.host}/chat-websocket`
+        });
+
+        stompClient.onWebSocketError = (error) => {
+            console.error('Error with websocket', error);
+        };
+
+        stompClient.onStompError = (frame) => {
+            console.error('Broker reported error: ' + frame.headers['message']);
+            console.error('Additional details: ' + frame.body);
+        };
+
+        stompClient.onConnect = (frame) => {
+            // console.log('Connected: ' + frame);
+            function syncDocumentToServer() {
+                // console.log(editor.html());
+                stompClient.publish(
+                    {
+                        destination: '/app/document-sync',
+                        body: editor.html(),
+                        skipContentLengthHeader: true
+                    });
+            }
+
+            syncDocumentToServer(); // perform initial sync
+
+            // update server with document on document edited
+            editor.on('input', syncDocumentToServer);
+
+        }
+
+        stompClient.activate();
     </script>
 </body>
 </html>

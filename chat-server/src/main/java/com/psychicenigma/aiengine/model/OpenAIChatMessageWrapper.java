@@ -1,12 +1,12 @@
-package com.psychicenigma.model;
+package com.psychicenigma.aiengine.model;
 
 import com.theokanning.openai.completion.chat.ChatMessage;
 
-public class ChatMessageWrapper extends MessageInterface {
+public class OpenAIChatMessageWrapper extends MessageInterface {
 
     private ChatMessage chatMessage;
 
-    public ChatMessageWrapper(ChatMessage chatMessage) {
+    public OpenAIChatMessageWrapper(ChatMessage chatMessage) {
         this.chatMessage = chatMessage;
     }
 
@@ -18,6 +18,11 @@ public class ChatMessageWrapper extends MessageInterface {
     @Override
     public String getSender() {
         return this.chatMessage.getName();
+    }
+
+    @Override
+    public String getRole() {
+        return this.chatMessage.getRole();
     }
 
     public ChatMessage getChatMessage() {

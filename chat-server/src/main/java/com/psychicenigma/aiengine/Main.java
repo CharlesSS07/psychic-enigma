@@ -1,7 +1,7 @@
-package com.psychicenigma;
+package com.psychicenigma.aiengine;
 
 
-import com.psychicenigma.model.*;
+import com.psychicenigma.aiengine.model.*;
 
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.completion.chat.ChatMessageRole;
@@ -10,9 +10,9 @@ import com.theokanning.openai.completion.chat.ChatMessageRole;
 public class Main {
     public static void main(String[] args) {
         ConversationInterface<OpenAIChatMessageWrapper> conversation = new Conversation<OpenAIChatMessageWrapper>();
-        OpenAIChatMessageWrapper document = new OpenAIChatMessageWrapper(new ChatMessage(ChatMessageRole.SYSTEM.value(), "", "Document"));
+        OpenAIChatMessageWrapper document = new OpenAIChatMessageWrapper(
+                new ChatMessage(ChatMessageRole.SYSTEM.value(), "", "Document"));
         OpenAIChatBot documentEditorBot = null;
-
 
         documentEditorBot = new OpenAIChatBot("JJ") {
 

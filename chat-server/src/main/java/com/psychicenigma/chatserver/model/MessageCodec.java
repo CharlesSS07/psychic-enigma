@@ -1,8 +1,8 @@
 package com.psychicenigma.chatserver.model;
 
 import com.google.gson.Gson;
-import com.psychicenigma.model.Message;
-import com.psychicenigma.model.MessageInterface;
+import com.psychicenigma.aiengine.model.Message;
+import com.psychicenigma.aiengine.model.MessageInterface;
 
 public class MessageCodec {
 

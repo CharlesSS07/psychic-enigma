@@ -1,6 +1,6 @@
-package com.psychicenigma;
+package com.psychicenigma.aiengine;
 
-import com.psychicenigma.model.*;
+import com.psychicenigma.aiengine.model.*;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
 

@@ -1,4 +1,4 @@
-package com.psychicenigma.model;
+package com.psychicenigma.aiengine.model;
 
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.completion.chat.ChatMessageRole;

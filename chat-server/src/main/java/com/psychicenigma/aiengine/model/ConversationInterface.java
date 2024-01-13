@@ -1,4 +1,4 @@
-package com.psychicenigma.model;
+package com.psychicenigma.aiengine.model;
 
 import java.util.ArrayList;
 import java.util.List;

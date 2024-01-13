@@ -128,7 +128,7 @@ $(function () {
 
     stompClient.onConnect = (frame) => {
         // should un-gray/enable typing box
-        console.log('Connected: ' + frame);
+
 
         // only send notification when tab is not active
         window.isActive = true;
@@ -169,52 +169,31 @@ $(function () {
             const msg = JSON.parse(resp.body);
             console.log(resp, msg);
             var sender = msg['sender']; // who sent it (who actually sent it)
-            var content = msg['content']; // content of message
-            var ffrom = sender; // who its ffrom (the display name of who sent it, or Server
+            var content = msg['content'];
+            console.log(sender);
 
-            showmsg(ffrom, content); // show it
+            content = content
+                .replaceAll('\\n', '<br>')
+                .replaceAll('\n', '<br>'); // content of message
 
-            /*
-             * @-ing functionality
-             * a message containing @{yourname} (or @all)
-             * will notify you if you are not on the page.
-             */
-            if (content.indexOf('@' + name) != -1 || content.indexOf('@all') != -1) {
-                if (window.isActive == false) {
-                    /* notifications */
-                    if (Notification.permission === "granted") {
-                        var notification = new Notification(ffrom + ': ' + content);
-                    } else {
-                        Notification.requestPermission();
-                    }
-                }
+            if (sender==="Brad") { // brads responses should be seen as options the user can click on
+                console.log(content);
+                // callback = stompClient.publish(
+                // {
+                //     destination: '/app/chat-message',
+                //     body: JSON.stringify({sender: 'Server', content: name + ' left the chat.'}),
+                //     skipContentLengthHeader: true
+                // });
+                content = content.split('<br>').map(i => '<a href="x.com">'+i+'</a>').join('<br>');
+                console.log(content);
             }
 
-            /*
-             * commands and stuff
-             */
-            if (ffrom != 'Server') { // if the message is from a user
-                if (content.startsWith('/')) { // commands
-                    var words = content.split(' '); // array of every word in the message
-                    var command = words[0]; // first word (everything before the first space)
-                    var args = content.slice(command.length + 1).split(', '); //args are everything except the first word, split by ', '
-                    console.log(`Words: ${words}\nCommand: ${command}\nArgs: ${args}`);
+            showmsg(sender, content); // show it
 
-                    switch (command) {
-                        case '/help': // print out possible commands
-                            showmsg('Server', `\
-                            /help - Show commands.<br>\
-                            /alert - Tell everyone something in a pop up.<br>\
-                            /ask - Ask everyone a question, and get their answers.<br>\
-                            /school - get time till the end of the period.<br>\
-                            /period - get the time till the end of the current period.<br>\
-                        `);
-                            break;
-                    }
-                }
-            }
             document.getElementById('bottom').scrollIntoView(true);
         });
+
+
     };
 
     stompClient.activate();
