@@ -28,37 +28,6 @@
       </form>
   </div>
 
-  <!--
-  <div id="loginbg"> <!-- login page to be displayed initially - ->
-    <!-- <center> -- >
-      <form id="login" action="">
-          <!-- <h1 style="font-size:50px;">Log In:</h1><br> - ->
-          <!-- <tr> - ->
-          <a id='usernameline'>Username:&nbsp;&nbsp;<input type="text" id="uname" autofocus/></a>
-          <!-- </tr>  - ->
-          <table id='options' style="display: none;">
-            <tr>
-              <td>background color </td><td><input type='color' id='background' value='#222222'/></td>
-            </tr>
-            <tr>
-              <td>accent color </td><td><input type='color' id='accent' value='#1a5ad1'/></td>
-            </tr>
-            <tr>
-              <td>message bubble color </td><td><input type='color' id='msg-background' value='#444444'/></td>
-            </tr>
-            <tr>
-              <td>UI size </td><td><input type='number' id='ui-size' value='48'/></td>
-            </tr>
-          </table>
-
-          <button id="ubutton" type="submit">Enter</button>
-
-          <a id='showops' onclick="document.getElementById('options').style.display = 'block';">options</a>
-          
-      </form>
-    <!-- </center> -- >
-  </div> -->
-
   <script>
     
 
@@ -89,21 +58,6 @@
       }
     };
 
-/* // strobe accent color ;
-body.style.setProperty('--accent', 'hsl(0,100%,50%)');
-function incrementAccent(){
-  var color = body.style.getPropertyValue('--accent');
-  console.log(color);
-  var hsl = color.split('(')[1].split(')')[0].split(',');
-  var h = parseInt(hsl[0]);
-  var s = hsl[1];
-  var l = hsl[2];
-  h = (h+10)%360;
-  body.style.set Property('--accent', 'hsl('+h+','+s+','+l+')');
-}
-setInterval(incrementAccent, 100);
-*/
-
 
     document.addEventListener('paste', function (e) {
       let tg = e.target; // what is being pasted into
@@ -122,18 +76,6 @@ setInterval(incrementAccent, 100);
         tg.innerHTML = tg.innerHTML.substring(0, window.getSelection().getRangeAt(0).startOffset) + pastedData + tg.innerHTML.substring(window.getSelection().getRangeAt(0).endOffset);
       // }
     });
-
-
-    
-    // document.onkeypress = function(e) {
-    //   var evtobj = window.event? event : e
-    //   if (46 <= evtobj.keyCode <= 90 && !$('#m').is(":focus")) { // if key typed is alphanumeric and #m box is not selected
-    //     // (user probably wanted to type it in #m box)
-    //     // $('#m').append(String.fromCharCode(evtobj.keyCode)); // type the letter
-    //     $('#m').focus(); // select the message box (#m)
-    //     // $('#m').get(0).setSelectionRange(-1, -1); // put cursor at the end
-    //   }
-    // };
 
   </script>
   </body>

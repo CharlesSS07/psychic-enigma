@@ -8,13 +8,6 @@
     <!-- Add the link to the external stylesheet -->
     <link type="text/css" rel="stylesheet" href="./jQuery-TE_v.1.4.0/jquery-te-1.4.0.css">
 
-    <script type="text/javascript" src="./jquery-3.7.1.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./jQuery-TE_v.1.4.0/jquery-te-1.4.0.min.js" charset="utf-8"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
-
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src='cursor.js'></script>
-
     <style>
         body {
             margin: 0;
@@ -32,100 +25,18 @@
             /**padding: 20px;**/
         }
 
-        #editor {
+        #memory {
             flex: 2;
-            /*height: 100%;*/
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        
-        #editor_area {
-            /*height:100%;*/
-        }
-        
-        .jqte {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            padding: 0px;
-            margin: 0px;
-            box-sizing: border-box;
-        }
-        
-        .jqte_editor {
-            height: 100%;
-            overflow-y: scroll;
-            box-sizing: border-box;
-            resize: none;
-        }
-        
-        .jqte_toolbar {
-          flex-shrink: 0;
-          flex-grow: 0;
         }
     </style>
 </head>
 <body>
     <div id="conversation">
-      <iframe src="chat.html" style="width:100%; height: 100%" sandbox="allow-scripts allow-same-origin allow-forms" frameborder="0"></iframe>
+        <iframe src="chat.html" style="width:100%; height: 100%" sandbox="allow-scripts allow-same-origin allow-forms" frameborder="0"></iframe>
     </div>
-    <div id="editor">
-        <!-- Document editing content goes here -->
-        <textarea id='editor_area'>
-            <div id="text-170648288" class="p">
-
-
-				Earlier today, more than 1,100 artificial intelligence experts, industry leaders and researchers <a href="https://slashdot.org/story/23/03/29/1339220/ai-leaders-urge-labs-to-halt-training-models-more-powerful-than-chatgpt-4">signed a petition</a> calling on AI developers to stop training models more powerful than OpenAI's ChatGPT-4 for at least six months. Among those who refrained from signing it was Eliezer Yudkowsky, a decision theorist from the U.S. and lead researcher at the Machine Intelligence Research Institute. He's been working on aligning Artificial General Intelligence since 2001 and is widely regarded as a founder of the field.
-<br> <br>
-"This 6-month moratorium would be better than no moratorium," writes Yudkowsky in an opinion piece for Time Magazine. "I refrained from signing because I think the letter is <a href="https://time.com/6266923/ai-eliezer-yudkowsky-open-letter-not-enough/">understating the seriousness of the situation and asking for too little to solve it</a>." Yudkowsky cranks up the rhetoric to 100, writing: "If somebody builds a too-powerful AI, under present conditions, I expect that every single member of the human species and all biological life on Earth dies shortly thereafter." Here's an excerpt from his piece: <i> The key issue is not "human-competitive" intelligence (as the open letter puts it); it's what happens after AI gets to smarter-than-human intelligence. Key thresholds there may not be obvious, we definitely can't calculate in advance what happens when, and it currently seems imaginable that a research lab would cross critical lines without noticing. [...] It's not that you can't, in principle, survive creating something much smarter than you; it's that it would require precision and preparation and new scientific insights, and probably not having AI systems composed of giant inscrutable arrays of fractional numbers. [...]
-<br> <br>
-It took more than 60 years between when the notion of Artificial Intelligence was first proposed and studied, and for us to reach today's capabilities. Solving safety of superhuman intelligence -- not perfect safety, safety in the sense of "not killing literally everyone" -- could very reasonably take at least half that long. And the thing about trying this with superhuman intelligence is that if you get that wrong on the first try, you do not get to learn from your mistakes, because you are dead. Humanity does not learn from the mistake and dust itself off and try again, as in other challenges we've overcome in our history, because we are all gone.
-<br> <br>
-Trying to get anything right on the first really critical try is an extraordinary ask, in science and in engineering. We are not coming in with anything like the approach that would be required to do it successfully. If we held anything in the nascent field of Artificial General Intelligence to the lesser standards of engineering rigor that apply to a bridge meant to carry a couple of thousand cars, the entire field would be shut down tomorrow. We are not prepared. We are not on course to be prepared in any reasonable time window. There is no plan. Progress in AI capabilities is running vastly, vastly ahead of progress in AI alignment or even progress in understanding what the hell is going on inside those systems. If we actually do this, we are all going to die.</i> You can read the full letter signed by AI leaders <a href="https://futureoflife.org/open-letter/pause-giant-ai-experiments/">here</a>.<br>
-
-		</div>
-        </textarea>
+    <div id="memory">
+        <iframe src="memory.html" style="width:100%; height: 100%" sandbox="allow-scripts allow-same-origin allow-forms" frameborder="0"></iframe>
     </div>
-
-    <script>
-        $("#editor_area").jqte();
-        const editor = $('.jqte_editor');
-        editor.wrap($('<div style="height: 100%; overflow-y:auto"></div>'));
-
-        const stompClient = new StompJs.Client({
-            brokerURL: `ws://${window.location.host}/chat-websocket`
-        });
-
-        stompClient.onWebSocketError = (error) => {
-            console.error('Error with websocket', error);
-        };
-
-        stompClient.onStompError = (frame) => {
-            console.error('Broker reported error: ' + frame.headers['message']);
-            console.error('Additional details: ' + frame.body);
-        };
-
-        stompClient.onConnect = (frame) => {
-            // console.log('Connected: ' + frame);
-            function syncDocumentToServer() {
-                // console.log(editor.html());
-                stompClient.publish(
-                    {
-                        destination: '/app/document-sync',
-                        body: editor.html(),
-                        skipContentLengthHeader: true
-                    });
-            }
-
-            syncDocumentToServer(); // perform initial sync
-
-            // update server with document on document edited
-            editor.on('input', syncDocumentToServer);
-
-        }
-
-        stompClient.activate();
-    </script>
 </body>
 </html>
 
